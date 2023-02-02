@@ -9,12 +9,15 @@ const flLightbox = () => {
         const items = con.querySelectorAll('.fl-lightbox-item');
         const images = con.querySelectorAll('.fl-lightbox-img');
         const length = images.length;
+        const hasNav = con.hasAttribute('nav');
         const lastIndex = length - 1;
         let nextIndex = 1;
         let prevIndex = lastIndex;
         let sources = [], modal, list, indexes, previewImgWrapper, previewImg, 
         prevArrow, nextArrow, closeBtn, zoomInBtn, zoomOutBtn, 
         rotateLeftBtn, rotateRightBtn, rotateLoop = 0; zoomLoop = 1;
+
+        let navbar, navItems = [], navImages = []
 
         // functions
         const createSources = () => { 
@@ -107,10 +110,24 @@ const flLightbox = () => {
             }
         }
 
+        const createNav = () => {
+
+            navbar = createElement('div',"", {class: "fl-lightbox-nav" }, modal);
+            navbar.addEventListener('click', (e) => { e.stopPropagation(); })
+            for (let i = 0; i < items.length; i++) {
+                navItems[i] = createElement('div',"", {class: "fl-lightbox-nav-item" }, navbar);
+                navImages[i] = createElement('img',"", {class: "fl-lightbox-nav-img", src: sources[i] }, navItems[i]);
+                navItems[i].setAttribute('data-index',i)
+                navItems[i].addEventListener('click', openModal);
+            }
+            
+        }
+
         const create = () => {
             createSources();
             createModal();
             setIndexes();
+            if (hasNav) createNav();
         }
 
         const openModal = (e) => {
@@ -120,6 +137,7 @@ const flLightbox = () => {
             indexes.innerHTML = `${Number(index) + 1} / ${length}`;
             nextIndex  = index;
             setNextIndex();
+            defaultPosition();
         }
 
         const closeModal = () => {
