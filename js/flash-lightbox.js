@@ -125,6 +125,8 @@ const flLightbox = () => {
         const closeModal = () => {
             modal.classList.remove('show');
             previewImg.setAttribute('src', sources[0]);
+            rotateLoop = 0; 
+            zoomLoop = 1;
             previewImg.setAttribute('style', `transform: scale3d(1, 1, 1) rotate(0deg)`);
             zoomOutBtn.classList.add('disabled');
         }
