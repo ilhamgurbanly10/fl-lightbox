@@ -123,6 +123,12 @@ const flLightbox = () => {
             
         }
 
+        const activeNavItem = (activeIndex) => {
+            for (let i = 0; i < length; i++) {
+                i == activeIndex ? navItems[i].classList.add('active') : navItems[i].classList.remove('active')   
+            }
+        }
+
         const create = () => {
             createSources();
             createModal();
@@ -138,6 +144,7 @@ const flLightbox = () => {
             nextIndex  = index;
             setNextIndex();
             defaultPosition();
+            activeNavItem(index);
         }
 
         const closeModal = () => {
@@ -161,6 +168,7 @@ const flLightbox = () => {
     
         const next = () => {
             previewImg.setAttribute('src', sources[nextIndex]);
+            activeNavItem(nextIndex);
             indexes.innerHTML = `${Number(nextIndex) + 1} / ${length}`;
             setNextIndex();
             defaultPosition();
@@ -173,6 +181,7 @@ const flLightbox = () => {
     
         const prev = () => {
             previewImg.setAttribute('src', sources[prevIndex]);
+            activeNavItem(prevIndex);
             indexes.innerHTML = `${Number(prevIndex) + 1} / ${length}`;
             setPrevIndex();
             defaultPosition();

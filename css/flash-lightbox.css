@@ -231,6 +231,10 @@
 	white-space: nowrap;
 }
 
+.fl-lightbox-nav-item.active {
+	border: 1px solid white;
+}
+
 .fl-lightbox-nav-item:not(:last-child) {
 	margin-right: 1rem;
 }
